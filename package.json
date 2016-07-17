@@ -1,0 +1,25 @@
+{
+  "name": "@agilatech/cozir5",
+  "version": "0.9.0",
+  "description": "Driver for the COZIR5 Sensor",
+  "main": "./build/Release/cozir5",
+  "gypfile": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Agilatech/cozir5.git"
+  },
+  "keywords": [
+    "Sensor",
+    "COZIR5",
+    "Temperature",
+    "Humidity"
+  ],
+  "author": "Scott Erholm <scott@agilatech.com>",
+  "license": "ISC"
+}

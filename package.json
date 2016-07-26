@@ -4,9 +4,6 @@
   "description": "Driver for the COZIR5 Sensor",
   "main": "./build/Release/cozir5",
   "gypfile": true,
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "install": "node-gyp rebuild"
   },
@@ -17,8 +14,7 @@
   "keywords": [
     "Sensor",
     "COZIR5",
-    "Temperature",
-    "Humidity"
+    "CO2"
   ],
   "author": "Scott Erholm <scott@agilatech.com>",
   "license": "ISC"

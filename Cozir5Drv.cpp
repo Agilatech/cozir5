@@ -85,7 +85,9 @@ bool Cozir5Drv::initialize() {
     struct termios options;
     tcgetattr(this->serialFile, &options);
     
-    // needed by the COZIR sensor only!
+    // cfmakeraw seems to be needed by the COZIR sensor, and not typically other serial devices.
+    // cfmakeraw() sets the terminal to something like the "raw" mode of the old Version 7 terminal driver.
+    // man cfmakeraw for a detailed explanation
     cfmakeraw(&options);
     
     // Set up the communications options:
@@ -100,6 +102,7 @@ bool Cozir5Drv::initialize() {
     usleep(COZIR5_READ_DELAY * 1000);
     readSerial();
     
+    // K 00002 is the response we should receive after the polling mode command.
     if (strncmp(" K 00002", this->receiveBuffer, 8) != 0) {
         std::cerr << "COZIR5 Received '" << this->receiveBuffer << "' in response to 'K 2\\n'" << std::endl;
         return false;
@@ -118,6 +121,7 @@ std::string Cozir5Drv::readValue0() {
     int badValCount = 0;
     bool validValue = false;
     
+    // write the poll command in order to receive sensor reading
     write(this->serialFile, "Z\r\n",3);
     usleep(COZIR5_READ_DELAY * 1000);
     
@@ -154,7 +158,7 @@ std::string Cozir5Drv::readValue0() {
         }
     }
     
-    // convert the float to a string with 1 decimal place
+    // convert the int to a string
     return DataManip::dataToString(co2);
 }
 

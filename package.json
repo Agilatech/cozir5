@@ -1,6 +1,6 @@
 {
   "name": "@agilatech/cozir5",
-  "version": "0.10.0",
+  "version": "0.9.1",
   "description": "Driver for the COZIR5 Sensor",
   "main": "./build/Release/cozir5",
   "gypfile": true,

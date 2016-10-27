@@ -46,6 +46,14 @@ cozir5.valueAtIndex(0, function(err, val) {
 });
 ```
 
+###Operation Notes
+This driver is programmed and calibrated for use with the COZIR 5% CO2 sensor, model GC-0015 manufactured by CO2Meter. 
+The measurement range for this sensor is 0-50,000ppm, or 0-5% CO2 concentration.  The accuracy is within plus/minus 
+70ppm, or about a 5% tolerance.
+
+This code may be adopted for other sensor models with different ranges.  Please contact Agilatech at tech@agilatech.com 
+if you need help with this.
+
 ###Dependencies
 * node-gyp
 

@@ -36,6 +36,10 @@ std::string Cozir5Drv::getDeviceName() {
     return name;
 }
 
+std::string Cozir5Drv::getDeviceType() {
+    return type;
+}
+
 int Cozir5Drv::getNumValues() {
     return numValues;
 }
@@ -58,6 +62,17 @@ std::string Cozir5Drv::getNameAtIndex(int index) {
 
 bool Cozir5Drv::isActive() {
     return this->active;
+}
+
+std::string Cozir5Drv::getValueByName(std::string name) {
+    
+    for (int i = 0; i < numValues; i++) {
+        if (name == valueNames[i]) {
+            return this->getValueAtIndex(i);
+        }
+    }
+    
+    return "none";
 }
 
 std::string Cozir5Drv::getValueAtIndex(int index) {

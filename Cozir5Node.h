@@ -32,6 +32,7 @@ public:
     static void Init(v8::Local<v8::Object> exports);
     
     static void getDeviceName(const v8::FunctionCallbackInfo<v8::Value>& args);
+    static void getDeviceType(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void getDeviceVersion(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void getDeviceNumValues (const v8::FunctionCallbackInfo<v8::Value>& args);
     static void getTypeAtIndex (const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -42,7 +43,7 @@ public:
     
 private:
     
-    explicit Cozir5Node(std::string devfile = "/dev/ttyO2") {}
+    explicit Cozir5Node(std::string devfile = "/dev/ttyS0") {}
     
     ~Cozir5Node() {}
     

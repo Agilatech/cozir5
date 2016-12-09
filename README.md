@@ -14,9 +14,9 @@ node-gyp configure build
 ```
 
 ###Usage
-#####Load the module and create and instance
+#####Load the module and create an instance
 ```
-const addon = require('cozir5');
+const addon = require('@agilatech/cozir5');
 
 // create an instance on the /dev/ttyO2 serial device file
 const cozir5 = new addon.Cozir5('/dev/ttyO2');
@@ -24,11 +24,12 @@ const cozir5 = new addon.Cozir5('/dev/ttyO2');
 #####Get basic device info
 ```
 const name = cozir5.deviceName();  // returns string with name of device
+const type = cozir5.deviceType();  // returns string with type of device
 const version = cozir5.deviceVersion(); // returns this software version
 const active = cozir5.deviceActive(); // true if active, false if inactive
 const numVals =  cozir5.deviceNumValues(); // returns the number of paramters sensed
 ```
-####Get paramter info and values
+####Get parameter info and values
 ```
 const paramName0 = cozir5.nameAtIndex(0);
 const paramType0 = cozir5.typeAtIndex(0);
@@ -55,7 +56,7 @@ This code may be adopted for other sensor models with different ranges.  Please 
 if you need help with this.
 
 ###Dependencies
-* node-gyp
+* node-gyp is required to configure and build
 
 ###Copyright
 Copyright © 2016 Agilatech. All Rights Reserved.

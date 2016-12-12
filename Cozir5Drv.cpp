@@ -14,6 +14,14 @@
 
 #include "Cozir5Drv.h"
 
+const std::string Device::name = "COZIR5";
+const std::string Device::type = "sensor";
+
+const int Device::numValues = Cozir5Drv::NUM_VALUES;
+
+const std::string Device::valueNames[numValues] = {"co2"};
+const std::string Device::valueTypes[numValues] = {"integer"};
+
 Cozir5Drv::Cozir5Drv(std::string devfile) {
     
     ///dev/ttyO2
@@ -28,61 +36,14 @@ Cozir5Drv::Cozir5Drv(std::string devfile) {
     
 }
 
-std::string Cozir5Drv::getVersion() {
-    return name + " " + version;
-}
-
-std::string Cozir5Drv::getDeviceName() {
-    return name;
-}
-
-std::string Cozir5Drv::getDeviceType() {
-    return type;
-}
-
-int Cozir5Drv::getNumValues() {
-    return numValues;
-}
-
-std::string Cozir5Drv::getTypeAtIndex(int index) {
-    if ((index < 0) || (index > (numValues - 1))) {
-        return "none";
-    }
-    
-    return valueTypes[index];
-}
-
-std::string Cozir5Drv::getNameAtIndex(int index) {
-    if ((index < 0) || (index > (numValues - 1))) {
-        return "none";
-    }
-    
-    return valueNames[index];
-}
-
-bool Cozir5Drv::isActive() {
-    return this->active;
-}
-
-std::string Cozir5Drv::getValueByName(std::string name) {
-    
-    for (int i = 0; i < numValues; i++) {
-        if (name == valueNames[i]) {
-            return this->getValueAtIndex(i);
-        }
-    }
-    
-    return "none";
-}
-
 std::string Cozir5Drv::getValueAtIndex(int index) {
     
     if (!this->active) {
         return "none";
     }
 
-    if (index == 0) {
-        return this->readValue0();
+    if (index < numValues) {
+        return (this->*readFunction[index])();
     }
     else {
         return "none";
@@ -125,6 +86,7 @@ bool Cozir5Drv::initialize() {
     
     return true;
 }
+
 
 std::string Cozir5Drv::readValue0() {
     

@@ -1,7 +1,7 @@
 /**
- * \file Cozir5Drv.h
+ * \file Device.cpp
  *
- *  Created by Scott Erholm on 6/14/16.
+ *  Created by Scott Erholm on 12/9/16.
  *  Copyright (c) 2016 Agilatech. All rights reserved.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -12,48 +12,59 @@
  *
  */
 
-#ifndef __Cozir5Drv__
-#define __Cozir5Drv__
-
-#include <iostream>
-#include <fstream>
-#include <termios.h>
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
 #include "Device.h"
-#include "DataManip.h"
+
+const std::string Device::version = "0.9.6";
+
+Device::Device() {
+    
+}
+
+std::string Device::getVersion() {
+    return name + " " + version;
+}
+
+std::string Device::getDeviceName() {
+    return name;
+}
+
+std::string Device::getDeviceType() {
+    return type;
+}
+
+int Device::getNumValues() {
+    return numValues;
+}
+
+std::string Device::getTypeAtIndex(int index) {
+    if ((index < 0) || (index > (numValues - 1))) {
+        return "none";
+    }
+    
+    return valueTypes[index];
+}
+
+std::string Device::getNameAtIndex(int index) {
+    if ((index < 0) || (index > (numValues - 1))) {
+        return "none";
+    }
+    
+    return valueNames[index];
+}
+
+bool Device::isActive() {
+    return this->active;
+}
+
+std::string Device::getValueByName(std::string name) {
+    
+    for (int i = 0; i < numValues; i++) {
+        if (name == valueNames[i]) {
+            return this->getValueAtIndex(i);
+        }
+    }
+    
+    return "none";
+}
 
 
-class Cozir5Drv : public Device {
-    
-public:
-    Cozir5Drv(std::string devfile);
-    virtual std::string getValueAtIndex(int index);
-    
-    static const int NUM_VALUES = 1;
-    
-protected:
-    
-    virtual bool initialize();
-    virtual std::string readValue0();
-    
-private:
-    
-    // Create an array of read functions, so that multiple functions can be easily called
-    typedef std::string(Cozir5Drv::*readValueType)();
-    readValueType readFunction[NUM_VALUES] = { &Cozir5Drv::readValue0 };
-    
-    static const int COZIR5_PPM_MULTIPLIER = 10;
-    static const int COZIR5_READ_DELAY = 200; // milliseconds
-    static const int COZIR5_NUM_RETRY = 10;
-
-    bool readSerial();
-    
-    const char *serialDevice;
-    char receiveBuffer[100];
-    int serialFile;
-    
-};
-
-#endif /* defined(__Cozir5Drv__) */

@@ -64,7 +64,7 @@ namespace cozir5 {
     void Cozir5Node::getDeviceName(const FunctionCallbackInfo<Value>& args) {
         Isolate* isolate = args.GetIsolate();
         
-        std::string name = Cozir5Drv::getDeviceName();
+        std::string name = driver->getDeviceName();
         Local<String> deviceName = String::NewFromUtf8(isolate, name.c_str());
         
         args.GetReturnValue().Set(deviceName);
@@ -73,7 +73,7 @@ namespace cozir5 {
     void Cozir5Node::getDeviceType(const FunctionCallbackInfo<Value>& args) {
         Isolate* isolate = args.GetIsolate();
         
-        std::string type = Cozir5Drv::getDeviceType();
+        std::string type = driver->getDeviceType();
         Local<String> deviceType = String::NewFromUtf8(isolate, type.c_str());
         
         args.GetReturnValue().Set(deviceType);
@@ -82,7 +82,7 @@ namespace cozir5 {
     void Cozir5Node::getDeviceVersion(const FunctionCallbackInfo<Value>& args) {
         Isolate* isolate = args.GetIsolate();
         
-        std::string ver = Cozir5Drv::getVersion();
+        std::string ver = driver->getVersion();
         Local<String> deviceVer = String::NewFromUtf8(isolate, ver.c_str());
         
         args.GetReturnValue().Set(deviceVer);
@@ -91,7 +91,7 @@ namespace cozir5 {
     void Cozir5Node::getDeviceNumValues (const FunctionCallbackInfo<Value>& args) {
         Isolate* isolate = args.GetIsolate();
         
-        int value = Cozir5Drv::getNumValues();
+        int value = driver->getNumValues();
         Local<Number> deviceNumVals = Number::New(isolate, value);
         
         args.GetReturnValue().Set(deviceNumVals);
